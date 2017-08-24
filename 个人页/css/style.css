@@ -436,6 +436,14 @@ transition: box-shadow 0.5s;transition:all .4s linear;-moz-transition:all .4s li
 		margin: 10px auto;
 	}
 }
+@keyframes width {
+	0%{
+		width: 0;
+	}
+	100%{
+		width: 90%;
+	}
+}
 /*@media screen and (max-width:970px ){*/
 	/**/
 /*}*/

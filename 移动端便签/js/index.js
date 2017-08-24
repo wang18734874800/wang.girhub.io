@@ -53,8 +53,10 @@ $(".add input").click(function(){
         $(".tishi1 span").click(function(){
             $(".tishi1").slideUp();
         });
-        location.reload();
+
         return;
+    }else{
+        location.reload();
     };
     var data=getData();
     var date=new Date();
