@@ -302,5 +302,43 @@ window.onload=function(){
     //商品遮罩结束
 
 }
+//按需加载
+let imgs = document.images;
+var obj = document.body.scrollTop == 0 ? document.documentElement : document.body;
+Array.from(imgs).forEach(function (ele) {
+
+    if (obj.scrollTop + window.innerHeight >=getPosition(ele)) {
+        ele.src = ele.getAttribute("data-src");
+    }
+})
+function getPosition(obj) {
+    let ot = obj.offsetTop;
+    let parent = obj.offsetParent;
+    while (parent !== null && parent.nodeName !== "BODY") {
+        ot += parent.offsetTop;
+        parent = parent.offsetParent;
+    }
+    return ot;
+}
+window.addEventListener("scroll", function () {
+    let imgs = document.images;
+    var obj = document.body.scrollTop == 0 ? document.documentElement : document.body;
+    Array.from(imgs).forEach(function (ele) {
+
+        if (obj.scrollTop + window.innerHeight >=getPosition(ele)) {
+            ele.src = ele.getAttribute("data-src");
+        }
+    })
+    function getPosition(obj) {
+        let ot = obj.offsetTop;
+        let parent = obj.offsetParent;
+        while (parent !== null && parent.nodeName !== "BODY") {
+            ot += parent.offsetTop;
+            parent = parent.offsetParent;
+        }
+        return ot;
+    }
+})
+//按需加载结束
 
 
