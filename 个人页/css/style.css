@@ -91,7 +91,10 @@ body,html,.swiper-container{height:100%;}
 .sub-page{background:url('../images/bg.jpg') no-repeat;background-size:100% 100%;}
 
 @media screen and (max-width:640px){
-
+	.header{width:100%;height:68px;position:fixed;top:0;left:0;width:100%;height:68px;z-index:100;min-width:640px;background:rgba(23,106,178,.5);box-shadow:0 0 10px #ccc;}
+	.header_p{float:left;display:inline;margin:10px 0 0 5px;text-align:center;color:#fff;}
+	.header_p span{display:block;padding:5px 15px;}
+	.header_p span.pt{border-bottom:1px solid #fff;}
 }
 
 @media screen and (max-width:960px){
@@ -107,7 +110,7 @@ body,html,.swiper-container{height:100%;}
 
 @media screen and (min-width:640px){
 /*头部*/
-.header{position:fixed;top:0;left:0;width:100%;height:68px;z-index:100;min-width:640px;background:rgba(23,106,178,.5);box-shadow:0 0 10px #ccc;}
+.header{width:100%;height:68px;position:fixed;top:0;left:0;width:100%;height:68px;z-index:100;min-width:640px;background:rgba(23,106,178,.5);box-shadow:0 0 10px #ccc;}
 .header_img{float:left;margin:5px 15px 5px 30px;}
 .header_img img{width:60px;height:60px;border-radius:50%;transition:all .4s linear;-moz-transition:all .4s linear;-webkit-transition:all .4s linear;-o-transition:all .4s linear;}
 .header_img img:hover{box-shadow:0 0 15px #1FAEFF;}
@@ -399,7 +402,39 @@ transition: box-shadow 0.5s;transition:all .4s linear;-moz-transition:all .4s li
 .ie-678-show{position:fixed;left:0;top:0;z-index:10000;width:100%;height:100%;background:url('../images/index_bg.png') no-repeat;background-size:100% 100%;background-color:#000}
 .ie-678-show-box{position:fixed;left:0;top:0;z-index:10000;width:100%;height:100%;background:rgba(0,0,0,.5)}
 
+.zuopin{
+	max-width: 1200px;
+	height: 490px;
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	margin: 0 auto;
+	overflow-y: scroll;
+}
+.zuopin li{
+	width: 23%;
+	height: 200px;
+	padding:10px;
+	border:1px solid #ccc;
+	margin:10px 0;
 
+}
+.zuopin li img{
+	width: 100%;
+	height: 100%;
+}
+@media screen and (max-width:700px ) {
+	.page{
+		width: 100%;
+	}
+	.zuopin li{
+		width: 70%;
+		margin: 10px auto;
+	}
+}
+/*@media screen and (max-width:970px ){*/
+	/**/
+/*}*/
 /*浏览器页面*/
 @media (min-width: 1000px) {
   .container {

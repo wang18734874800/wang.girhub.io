@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="jquery-3.2.1.min.js"></script>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            list-style: none;
+        }
+        body{
+            font-family: "隶书";
+        }
+        .box{
+            width:1200px;
+            height: auto;
+            margin: 0 auto;
+        }
+        .box1{
+            width: 100%;
+            height: 25px;
+            color: #ccc;
+
+        }
+        .box1 select{
+            width: 60px;
+            height: 100%;
+            margin: 0 20px;
+            line-height: 25px;
+        }
+        .xian{
+            width: 100%;
+            /*height: 275px;*/
+            /*background-color: #21bfff;*/
+            display: flex;
+            padding:20px;
+            /*display: none;*/
+            background-image:url("img/155.jpg");
+            background-size: cover;
+
+        }
+        .dang{
+            width: 30%;
+            height: 100%;
+            display: flex;
+        }
+        .dang p{
+            height: 25px;
+            color: #fff;
+            font-size: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .getday{
+            padding:0 20px;
+        }
+        .tianqi{
+            width: 100%;
+            height: auto;
+            display: flex;
+            justify-content: space-around;
+        }
+        .wen{
+            width: 70px;
+            height: 70px;
+            color: #fff;
+            font-size: 50px;
+            padding:20px;
+        }
+        .tu{
+            width: 70px;
+            height:70px;
+            margin:20px;
+        }
+        .xuanz{
+            text-align: center;
+            font-size: 20px;
+            color: #333;
+            margin:20px;
+        }
+        .qita{
+            width: 17.5%;
+        }
+        .qita p{
+            height: 25px;
+            color: #fff;
+            font-size: 20px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .qita div{
+            width: 70px;
+            height: 70px;
+            margin:0 auto;
+        }
+        .hou{
+            margin-bottom: 0;
+        }
+        .shishi{
+            width: 100%;
+            height: auto;
+            padding:20px;
+            background-image: url("img/155.jpg");
+            background-size: cover;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .shishi ul{
+            width: 98px;
+            background-color: rgba(90, 148, 255, 0.2);
+            border:1px solid rgba(255,255,255,0.5)
+
+        }
+        .shishi ul li{
+            font-size: 16px;
+            color: #fff;
+            text-align: center;
+            margin:5px 0;
+
+        }
+        .shishi ul div{
+            width: 70px;
+            height: 70px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+<p class="xuanz">天气预报</p>
+<div class="box">
+    <div class="box1">
+        省份<select id="province"></select>
+        城市<select id="city"></select>
+    </div>
+    <div class="xian">
+        <div class="dang"></div>
+    </div>
+    <div class="shishi">
+
+    </div>
+</div>
+
+</body>
+<script>
+    var shishi=[];
+    var citys=[];
+    var data=[];
+    $.getScript("http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js",function(){
+    var city=remote_ip_info.city;
+    var province=remote_ip_info.province;
+        $("<option>").html(province).val(22).appendTo("#province");
+        $("<option>").html(city).val(299).appendTo("#city");
+        var ctiys=$("#city").find("option:selected").text();
+        $.ajax({
+            url: "http://api.jisuapi.com/weather/query?appkey=yourappkey&city="+ctiys,
+            dataType:"jsonp",
+            data:{appkey:"86db61a4cd6daf64"},
+            success:function(r){
+                console.log(r)
+                $(".xian").empty();
+                $(".shishi").empty();
+                var value=r.result;
+                citys=value.daily;
+                shishi=value.hourly;
+                console.log(shishi);
+                $("<div class='dang'>").html(`
+            <div>
+                <p>${value.date}<span class="getday">${value.week}</span></p>
+                <div class="tianqi">
+                    <div class="wen">${value.temp}℃</div>
+                    <div class="tu"><img src="img/天气图标/weathercn02/${value.img}.png" alt=""></div>
+                </div>
+            </div>
+
+            <div>
+                <p>${value.templow}℃~${value.temphigh}℃</p>
+                <p><span>${value.windpower}</span>${value.winddirect}</p>
+                <p>${value.weather}</p>
+            </div>`).appendTo(".xian")
+                $.each(citys,function(index,val){
+
+                    if(index===0){
+                    }else{
+                        $("<div class=\"qita\">").html(`
+
+            <p>${val.week}</p>
+            <p>${val.date}</p>
+            <div><img src="img/天气图标/weathercn02/${val.day.img}.png" alt=""></div>
+            <p>${val.day.weather}</p>
+            <p>${val.day.windpower}</p><p>${val.night.templow}℃~${val.day.temphigh}℃</p>`).appendTo(".xian");
+                    }
+
+
+                });
+                $.each(shishi,function(index,value){
+                    $("<ul>").html(`
+                     <li>${value.time}</li>
+                    <li>${value.temp}℃</li>
+                    <div><img src="img/天气图标/weathercn02/${value.img}.png" alt=""></div>
+                        <li>${value.weather}</li>
+                    `).appendTo(".shishi");
+
+
+                });
+
+
+            }
+        })
+
+
+    });
+    $.ajax({
+        url:"http://api.jisuapi.com/weather/city",
+        dataType:"jsonp",
+        data:{appkey:"86db61a4cd6daf64"},
+        success:function(r){
+            data=r.result;
+           var province=$.grep(r.result,function(value,index){
+                if(value.parentid=="0"){
+                    return true;
+                }
+            });
+            $.each(province,function(index,value){
+                $("<option>").html(value.city).val(value.cityid).appendTo("#province");
+            })
+        }
+    })
+    //得到地区
+    $("#province").on("change blur",function(){
+        var id=$(this).val();
+        var citys=$.grep(data,function(value){
+            if(value.parentid===id){
+                return true;
+            }
+        });
+        $("#city").empty();
+        $.each(citys,function(index,value){
+            $("<option>").html(value.city).val(value.cityid).appendTo($("#city"))
+        })
+
+    });
+
+    $("#city").on("change blur",function(){
+        setTimeout(function(){
+            $(".xian").slideDown();
+        },500)
+
+       var ctiyq=$(this).find("option:selected").text();
+       console.log(ctiyq)
+        $.ajax({
+            url: "http://api.jisuapi.com/weather/query?appkey=yourappkey&city="+ctiyq,
+            dataType:"jsonp",
+            data:{appkey:"86db61a4cd6daf64"},
+            success:function(r){
+                console.log(r)
+                $(".xian").empty();
+                $(".shishi").empty();
+               var value=r.result;
+               citys=value.daily;
+               shishi=value.hourly;
+                console.log(shishi);
+                $("<div class='dang'>").html(`
+            <div>
+                <p>${value.date}<span class="getday">${value.week}</span></p>
+                <div class="tianqi">
+                    <div class="wen">${value.temp}℃</div>
+                    <div class="tu"><img src="img/天气图标/weathercn02/${value.img}.png" alt=""></div>
+                </div>
+            </div>
+
+            <div>
+                <p>${value.templow}℃~${value.temphigh}℃</p>
+                <p><span>${value.windpower}</span>${value.winddirect}</p>
+                <p>${value.weather}</p>
+            </div>`).appendTo(".xian")
+               $.each(citys,function(index,val){
+
+                       if(index===0){
+                       }else{
+                           $("<div class=\"qita\">").html(`
+
+            <p>${val.week}</p>
+            <p>${val.date}</p>
+            <div><img src="img/天气图标/weathercn02/${val.day.img}.png" alt=""></div>
+            <p>${val.day.weather}</p>
+            <p>${val.day.windpower}</p><p>${val.night.templow}℃~${val.day.temphigh}℃</p>`).appendTo(".xian");
+                       }
+
+
+               });
+                $.each(shishi,function(index,value){
+                    $("<ul>").html(`
+                     <li>${value.time}</li>
+                    <li>${value.temp}℃</li>
+                    <div><img src="img/天气图标/weathercn02/${value.img}.png" alt=""></div>
+                        <li>${value.weather}</li>
+                    `).appendTo(".shishi");
+
+
+                });
+
+
+            }
+        })
+    })
+</script>
+</html>
