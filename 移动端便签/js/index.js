@@ -84,10 +84,10 @@ function reMate(){
                         <time>${time(ele.time)}</time>
                         `
             if(ele.isStr){
-                str1+=`<i class="active iconfont">&#xe6b8;</i>
+                str1+=`<i class="active iconfont font">&#xe6b8;</i>
                 </li>`
             }else{
-                str1+=`<i class="iconfont">&#xe6b8;</i>
+                str1+=`<i class="iconfont font">&#xe6b8;</i>
                 </li>`
             }
         }else{
@@ -97,10 +97,10 @@ function reMate(){
                         <time>${time(ele.time)}</time>
                         `;
             if(ele.isStr){
-                str2+=`<i class="active iconfont">&#xe6b8;</i>
+                str2+=`<i class="active iconfont font">&#xe6b8;</i>
                 </li>`
             }else{
-                str2+=`<i class="iconfont">&#xe6b8;</i>
+                str2+=`<i class="iconfont font">&#xe6b8;</i>
                 </li>`
             }
         }

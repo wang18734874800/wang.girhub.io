@@ -281,3 +281,6 @@ footer{
 .active{
     color: red;
 }
+.font{
+    font-size: .4rem!important;
+}

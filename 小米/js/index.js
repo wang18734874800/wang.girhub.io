@@ -324,7 +324,6 @@ window.addEventListener("scroll", function () {
     let imgs = document.images;
     var obj = document.body.scrollTop == 0 ? document.documentElement : document.body;
     Array.from(imgs).forEach(function (ele) {
-
         if (obj.scrollTop + window.innerHeight >=getPosition(ele)) {
             ele.src = ele.getAttribute("data-src");
         }
